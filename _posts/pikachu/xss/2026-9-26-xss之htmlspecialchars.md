@@ -1,3 +1,14 @@
+---
+title: pikachu xss之htmlspecialchars
+date: 2026-9-26 23:29:53
+categories:
+- xss/xss之htmlspecialchars
+tags:
+- pikachu
+- xss
+- xss之htmlspecialchars
+description: 皮卡丘靶场-xss之htmlspecialchars，简单记录漏洞原理与复现步骤。
+---
 # 皮卡丘靶场-xss之htmlspecialchars
 
 ## 一、基本信息
