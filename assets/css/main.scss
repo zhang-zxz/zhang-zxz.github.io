@@ -53,41 +53,4 @@ $jekyll-config-map : {{ config_map }};
 // --------------------------------------------------
 @import "_custom/custom";
 
-// ========= Chirpy 首页卡片美化 新版正确选择器 =========
-body {
-  background-color: #f5f6f8 !important;
-}
-
-#post-list > article.card-wrapper.card {
-  background-color: #ffffff !important;
-  border-radius: 12px !important;
-  padding: 24px !important;
-  margin-bottom: 20px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-  border: 1px solid #eef0f3 !important;
-  transition: box-shadow 0.25s ease, transform 0.25s ease !important;
-}
-
-#post-list > article.card-wrapper.card:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08) !important;
-  transform: translateY(-2px) !important;
-}
-
-#post-list > article.card-wrapper.card .card-title {
-  font-size: 22px !important;
-  color: #1f2937 !important;
-}
-
-#post-list > article.card-wrapper.card .card-text {
-  color: #4b5563 !important;
-  font-size:15px !important;
-}
-
-#post-list > article.card-wrapper.card .post-meta .category {
-  background-color: #eef2ff !important;
-  color: #4f46e5 !important;
-  padding: 2px 8px !important;
-  border-radius: 6px !important;
-  font-size:13px !important;
-}
 
