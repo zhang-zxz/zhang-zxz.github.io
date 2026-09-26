@@ -53,4 +53,67 @@ $jekyll-config-map : {{ config_map }};
 // --------------------------------------------------
 @import "_custom/custom";
 
+// 页面背景
+body {
+  background-color: #f5f6f8 !important;
+}
+
+// 文章卡片主体
+#posts.posts-expand > article.post {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  padding: 28px !important;
+  margin-bottom: 22px !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+  border: 1px solid #e9ecef !important;
+  transition: all 0.24s ease !important;
+}
+
+// 悬浮上浮+加深阴影
+#posts.posts-expand > article.post:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+  transform: translateY(-3px) !important;
+}
+
+// 文章标题
+#posts.posts-expand > article.post .post-title {
+  font-size: 24px !important;
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+}
+
+#posts.posts-expand > article.post .post-title-link {
+  color: #222 !important;
+}
+#posts.posts-expand > article.post .post-title-link:hover {
+  color: #2563eb !important;
+}
+
+// 元信息（时间、分类）
+#posts.posts-expand > article.post .post-meta {
+  color: #666 !important;
+  font-size: 14px !important;
+  margin-bottom: 12px !important;
+}
+
+// 文章摘要文字
+#posts.posts-expand > article.post .post-body {
+  color: #444 !important;
+  font-size: 15px !important;
+}
+
+// 阅读全文按钮
+#posts.posts-expand > article.post .btn {
+  background-color: #222 !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+}
+#posts.posts-expand > article.post .btn:hover {
+  background-color: #2563eb !important;
+}
+
+// 文章底部分隔线（原来那条横线）
+#posts.posts-expand > article.post .post-eof {
+  display: none !important;
+}
 
