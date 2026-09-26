@@ -137,16 +137,38 @@ body {
   padding: 100px 0 50px  !important;
 }
 
+/* 侧边栏底色修改 */
 .sidebar {
-  background-color: #222428 !important;
+  background-color: #202329 !important;
 }
-.sidebar .sidebar-nav {
-  background-color: #222428 !important;
+.sidebar-inner {
+  background-color: #202329 !important;
 }
-/* RSS改成灰色，去掉橙色 */
-.btn-rss {
-  background-color: #33363b !important;
-  color:#cccccc !important;
-  border:1px solid #555 !important;
+
+/* RSS链接：去掉橙色，改成低调白色系 */
+.feed-link a {
+  background: transparent !important;
+  color: #cccccc !important;
+  border: 1px solid #444 !important;
+  border-radius: 6px;
 }
+.feed-link a:hover {
+  background-color: #333842 !important;
+  color: #fff !important;
+}
+
+/* 侧边文字微调，柔和一点 */
+.site-author-name {
+  color: #eee !important;
+}
+.site-description {
+  color: #aaa !important;
+}
+.site-state-item-count {
+  color: #eee !important;
+}
+.site-state-item-name {
+  color: #aaa !important;
+}
+
 
