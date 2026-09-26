@@ -39,4 +39,4 @@ description: 皮卡丘靶场-xss之htmlspecialchars，简单记录漏洞原理�
   可以看到'被转义，导致该段代码被当成纯文本
 ![步骤截图](/assets/images/pikachu/xss/xss之htmlspecialchars2.png)
 
-  输入框中写入javascript:function(){alert(document.cookie)};,弹出提示框
+  输入框中写入`javascript:function(){alert(document.cookie)};`,弹出提示框
