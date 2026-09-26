@@ -33,3 +33,10 @@ description: 皮卡丘靶场-xss之htmlspecialchars，简单记录漏洞原理�
 - **结果**：成功复现漏洞，得到预期结果。
 - **总结**：该种漏洞本质上是转义这种数据处理操作存在一定的局限性，对于javascript:这种伪协议的话处理不了，但这种伪协议本身局限于src、href这类属性场景，这时可采取黑名单/白名单校验，过滤拦截这些伪协议，可以采取过滤和转义双重处理，来提升整体的安全性。
 
+## 五、步骤截图
+![步骤截图](/assets/images/pikachu/xss/xss之htmlspecialchars1.png)
+
+  可以看到'被转义，导致该段代码被当成纯文本
+![步骤截图](/assets/images/pikachu/xss/xss之htmlspecialchars2.png)
+
+  输入框中写入javascript:function(){alert(document.cookie)};,弹出提示框
