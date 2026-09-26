@@ -122,10 +122,15 @@ body {
 }
 
 body {
-  background: linear-gradient(180deg, #f7f8fa 0%, #edf0f5 100%) !important;
-  background-attachment: fixed;
+  background-color: #f3f4f6 !important;
+  background-image: url("/assets/images/blog-bg.png") !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-attachment: fixed !important;
 }
 
+
 .header-inner{
-  padding: 100px 0 50px;
+  padding: 100px 0 50px  !important;
 }
