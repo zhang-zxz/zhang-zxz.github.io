@@ -118,7 +118,7 @@ body {
 }
 
 .main-inner {
-  padding-top: 20px !important;
+  padding-top: 0px !important;
 }
 
 body {
@@ -136,3 +136,17 @@ body {
 .header-inner{
   padding: 100px 0 50px  !important;
 }
+
+.sidebar {
+  background-color: #222428 !important;
+}
+.sidebar .sidebar-nav {
+  background-color: #222428 !important;
+}
+/* RSS改成灰色，去掉橙色 */
+.btn-rss {
+  background-color: #33363b !important;
+  color:#cccccc !important;
+  border:1px solid #555 !important;
+}
+
