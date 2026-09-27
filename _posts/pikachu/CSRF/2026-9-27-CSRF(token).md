@@ -1,3 +1,14 @@
+---
+title: pikachu CSRF(token)
+date: 2026-9-27 23:29:53
+categories:
+- CSRF/CSRF(token)
+tags:
+- pikachu
+- CSRF
+- CSRF(token)
+description: 皮卡丘靶场-CSRF(token)，简单记录漏洞原理与复现步骤。
+---
 # 皮卡丘靶场-CSRF(token)
 
 ## 一、基本信息
