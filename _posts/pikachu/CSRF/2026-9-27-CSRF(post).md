@@ -1,3 +1,14 @@
+---
+title: pikachu CSRF(post)
+date: 2026-9-27 23:29:53
+categories:
+- CSRF/CSRF(post)
+tags:
+- pikachu
+- CSRF
+- CSRF(post)
+description: 皮卡丘靶场-CSRF(post)，简单记录漏洞原理与复现步骤。
+---
 # 皮卡丘靶场-CSRF(post)
 
 ## 一、基本信息
