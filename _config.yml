@@ -738,8 +738,3 @@ images: assets/images
 # Theme version
 version: 5.1.1
 
-# Sidebar Avatar
-avatar:
-  url: /assets/images/avatar.png
-  rounded: true
-  rotated: false
